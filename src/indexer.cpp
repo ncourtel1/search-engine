@@ -55,10 +55,10 @@ std::unordered_map<std::string, int> processFile(const std::string& filePath) {
         }
     }
 
-    // Print word occurrences for debugging/output purposes
-   //  std::cout << "Occurrences in file: " << filePath << std::endl;
-   //  for (const auto& [key, value] : occurrenceMap) {  // Structured binding to iterate through the map
-   //      std::cout << key << ": " << value << std::endl;
-   //  }
+   //Print word occurrences for debugging/output purposes
+   std::cout << "Occurrences in file: " << filePath << std::endl;
+   for (const auto& [key, value] : occurrenceMap) {  // Structured binding to iterate through the map
+      std::cout << key << ": " << value << std::endl;
+   }
     return occurrenceMap;
 }
