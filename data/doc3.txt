@@ -1,0 +1,5 @@
+ceci 
+est 
+le 
+doc3.txt
+helLO
