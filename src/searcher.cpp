@@ -129,7 +129,7 @@ void displayFileContent(const std::string& file) {
    std::string fileDisplayResponse;
    std::string line;
 
-   std::cout << "Would you like to see the content of the files? (Yes/No): ";
+   std::cout << "Would you like to see the content of the files " << file << "? (Yes/No): ";
    std::cin >> fileDisplayResponse;
 
    // Convert response to lowercase for easier comparison
@@ -149,6 +149,7 @@ void displayFileContent(const std::string& file) {
       std::cerr << "Invalid input. Please type Yes or No.\n";
       displayFileContent(file);  // Ask again for a valid response
    }
+   return;
 }
 
 bool AskForAction() {
@@ -162,6 +163,7 @@ bool AskForAction() {
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       return true; 
     } else if (response == 2) {
+      std::cout << "Goodbye!\n";
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       return false;
     } else {
