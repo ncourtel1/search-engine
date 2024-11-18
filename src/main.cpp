@@ -23,10 +23,11 @@ int main() {
       std::cout << std::endl;
    }
 
-   std::string wordToFind = UserInterface();
-   std::vector<std::string> fileFoundPath = SearchWord(occurrenceByFileMap, wordToFind);
-   std::unordered_map<std::string, std::vector<int>> fileAndLines = SearchStr(fileFoundPath, wordToFind);
-   displayFileContent(fileFoundPath);
-
+   std::string phraseToFind = UserInterface();
+   std::unordered_map<std::string, std::vector<int>> fileAndLines = SearchStr(fileName, phraseToFind);
+   DisplayLineContent(fileAndLines);
+   for (const auto& [file, line] : fileAndLines){
+      displayFileContent(file);
+   }
    return 0; // Indicate successful execution
 }
