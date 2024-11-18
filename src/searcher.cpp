@@ -28,25 +28,28 @@ std::vector<std::string> SearchWord(const std::unordered_map<std::string, std::u
 
 // Function to interact with the user
 const std::string UserInterface() {
-   static int attempts = 0;
-   if (attempts > 3) {
-      std::cerr << "Too many invalid attempts. Exiting...\n";
-      exit(EXIT_FAILURE);
-   }
-   attempts++;
+   int attempts = 0;  // Counter to track the number of invalid attempts
 
-   std::string word;
-   std::cout << "What word would you like to find?: ";
-   std::cin >> word;
+   // Loop to allow the user to input a valid word, with a maximum of 3 attempts
+   while (attempts <= 3) {
+      std::string word;
+      std::cout << "What word would you like to find?: ";  // Prompt the user to enter a word
+      std::cin >> word;  // Read the user's input
 
-   word = cleanWord(word);
-   if (word.empty()) {
+      word = cleanWord(word);  // Clean the word to remove unwanted characters
+
+      if (!word.empty()) {
+         return word;  // If the word is valid, return it
+      }
+
+      // If the input is invalid, notify the user and increment the attempt counter
       std::cerr << "Invalid input. Please enter a valid word.\n";
-      return UserInterface();
+      attempts++;
    }
 
-   attempts = 0;  // Reset attempts on successful input
-   return word;
+   // If the user exceeds the maximum number of invalid attempts, exit the program
+   std::cerr << "Too many invalid attempts. Exiting...\n";
+   exit(EXIT_FAILURE);  // Terminate the program with an error status
 }
 
 // Function to display the content of files
