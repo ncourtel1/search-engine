@@ -150,3 +150,22 @@ void displayFileContent(const std::string& file) {
       displayFileContent(file);  // Ask again for a valid response
    }
 }
+
+bool AskForAction() {
+    int response;
+    std::cout << "\nWhat would you like to do?\n";
+    std::cout << "1 - Stay\n" << "2 - Quit\n";
+    std::cout << "Enter your choice (1-2): ";
+    std::cin >> response;
+
+    if (response == 1) {
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      return true; 
+    } else if (response == 2) {
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      return false;
+    } else {
+      std::cout << "Please enter a valid choice (1-2)\n";
+      return AskForAction();
+    }
+}
