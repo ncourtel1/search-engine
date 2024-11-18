@@ -25,7 +25,8 @@ int main() {
 
    std::string wordToFind = UserInterface();
    std::vector<std::string> fileFoundPath = SearchWord(occurrenceByFileMap, wordToFind);
+   std::unordered_map<std::string, std::vector<int>> fileAndLines = SearchStr(fileFoundPath, wordToFind);
    displayFileContent(fileFoundPath);
 
-    return 0; // Indicate successful execution
+   return 0; // Indicate successful execution
 }
