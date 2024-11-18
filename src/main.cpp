@@ -14,20 +14,23 @@ int main() {
       occurrenceByFileMap[file] = processFile(file); // Add the map for the file
    }
 
-   // Debug: Print all word occurrences for each file
-   for (const auto& [file, wordMap] : occurrenceByFileMap) {
-      std::cout << "Occurrences in file: " << file << std::endl;
-      for (const auto& [word, count] : wordMap) {
-         std::cout << "  " << word << ": " << count << std::endl;
+   // // Debug: Print all word occurrences for each file
+   // for (const auto& [file, wordMap] : occurrenceByFileMap) {
+   //    std::cout << "Occurrences in file: " << file << std::endl;
+   //    for (const auto& [word, count] : wordMap) {
+   //       std::cout << "  " << word << ": " << count << std::endl;
+   //    }
+   //    std::cout << std::endl;
+   // }
+   std::cout << "WELCOME to my own Search Engine!!!\n";
+   do {
+      std::string phraseToFind = UserInterface();
+      std::unordered_map<std::string, std::vector<int>> fileAndLines = SearchStr(fileName, phraseToFind);
+      DisplayLineContent(fileAndLines);
+      for (const auto& [file, line] : fileAndLines){
+         displayFileContent(file);
       }
-      std::cout << std::endl;
-   }
-
-   std::string phraseToFind = UserInterface();
-   std::unordered_map<std::string, std::vector<int>> fileAndLines = SearchStr(fileName, phraseToFind);
-   DisplayLineContent(fileAndLines);
-   for (const auto& [file, line] : fileAndLines){
-      displayFileContent(file);
-   }
+   } while(AskForAction());
+   
    return 0; // Indicate successful execution
 }
