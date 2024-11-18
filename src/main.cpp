@@ -5,32 +5,29 @@
 #include "../include/searcher.h"
 
 int main() {
-   // Get a list of all file names in the "../data" directory
+   // Retrieve the list of file names in the "../data" directory
    const std::vector<std::string> fileName = getFileName("../data"); 
    std::unordered_map<std::string, std::unordered_map<std::string, int>> occurrenceByFileMap;
 
-   // Iterate through each file name and process it
+   // Process each file to create a map of word occurrences
    for (const std::string& file : fileName) {
-      occurrenceByFileMap[file] = processFile(file); // Add the map for the file
+      occurrenceByFileMap[file] = processFile(file); // Count word occurrences for each file
    }
-
-   // // Debug: Print all word occurrences for each file
-   // for (const auto& [file, wordMap] : occurrenceByFileMap) {
-   //    std::cout << "Occurrences in file: " << file << std::endl;
-   //    for (const auto& [word, count] : wordMap) {
-   //       std::cout << "  " << word << ": " << count << std::endl;
-   //    }
-   //    std::cout << std::endl;
-   // }
+   
+   // Welcome message for the user
    std::cout << "WELCOME to my own Search Engine!!!\n";
+   
+   // Main program loop to allow multiple searches
    do {
-      std::string phraseToFind = UserInterface();
-      std::unordered_map<std::string, std::vector<int>> fileAndLines = SearchStr(fileName, phraseToFind);
-      DisplayLineContent(fileAndLines);
-      for (const auto& [file, line] : fileAndLines){
+      std::string phraseToFind = UserInterface(); // Prompt user for a search phrase
+      std::unordered_map<std::string, std::vector<int>> fileAndLines = SearchStr(fileName, phraseToFind); // Search files for the phrase
+      DisplayLineContent(fileAndLines); // Display line content if the user requests it
+      
+      // Optionally display full file content based on user input
+      for (const auto& [file, line] : fileAndLines) {
          displayFileContent(file);
       }
-   } while(AskForAction());
+   } while (AskForAction()); // Continue until the user decides to quit
    
-   return 0; // Indicate successful execution
+   return 0; // Program exits successfully
 }
