@@ -82,3 +82,77 @@ void displayFileContent(const std::vector<std::string>& files) {
       displayFileContent(files);  // Ask again for a valid response
    }
 }
+
+// Function to search for a string in multiple files
+std::unordered_map<std::string, std::vector<int>> SearchStr(const std::vector<std::string>& files, const std::string& str) {
+   // Convert the search string to lowercase
+   std::string searchStr = str;
+   std::transform(searchStr.begin(), searchStr.end(), searchStr.begin(), ::tolower);
+
+   // Map to store files and their corresponding line numbers where the string is found
+   std::unordered_map<std::string, std::vector<int>> fileAndLines;
+
+   std::cout << "Searching for the phrase: \"" << searchStr << "\"...\n";
+
+   // Iterate through each file
+   for (const std::string& fileName : files) {
+      std::ifstream file(fileName); // Open the file
+      if (!file.is_open()) { // Check if the file is successfully opened
+         std::cerr << "Error: Could not open file " << fileName << '\n';
+         continue; // Skip to the next file if there's an error
+      }
+
+      std::string line;
+      int lineNumber = 1; // Track the current line number
+
+      // Read each line from the file
+      while (std::getline(file, line)) {
+         // Convert the line to lowercase for case-insensitive search
+         std::string lowerLine = line;
+         std::transform(lowerLine.begin(), lowerLine.end(), lowerLine.begin(), ::tolower);
+
+         // Check if the search string exists in the current line
+         if (lowerLine.find(searchStr) != std::string::npos) {
+               fileAndLines[fileName].push_back(lineNumber); // Store the line number in the map
+         }
+
+         lineNumber++; // Move to the next line
+      }
+
+      file.close(); // Close the file after reading
+   }
+
+   // Display the search results
+   if (!fileAndLines.empty()) {
+      for (const auto& [fileName, lineNumbers] : fileAndLines) {
+         std::cout << "String \"" << searchStr << "\" found in file: " << fileName << '\n';
+         std::cout << "At line number(s): ";
+         for (size_t i = 0; i < lineNumbers.size(); ++i) {
+               std::cout << lineNumbers[i];
+               if (i != lineNumbers.size() - 1) {
+                  std::cout << ", "; // Add a comma between line numbers, except for the last one
+               }
+         }
+         std::cout << '\n';
+      }
+   } else {
+      std::cout << "The string \"" << searchStr << "\" was not found in any file.\n";
+   }
+
+}
+
+// void DisplayLineContent(std::unordered_map<std::string, std::vector<int>> fileAndLines){
+//    std::string response;
+
+//    for (const auto& [fileName, lineNumbers] : fileAndLines) {
+//       std::cout << "Would you like to see the content of the line " << lineNumbers << " in the file " << fileName << " ?";
+//       std::cout << "(Yes or No)? ";
+//       std::cin >> response;
+//       for (auto& c : response) c = std::tolower(c);
+
+//       if (response == "y" || response == "yes"){
+
+//       }
+      
+//    }
+// }
